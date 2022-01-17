@@ -4,6 +4,11 @@ class TasksController < ApplicationController
       render json: tasks
     end
 
+    def search
+      tasks = Task.all.where("title = ? and category_id = ?", params[:search], params[:id])
+      render json: tasks
+    end
+
     def create
       task = Task.create(task_params)
       render json: task
