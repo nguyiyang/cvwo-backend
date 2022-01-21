@@ -6,13 +6,21 @@ class CategoriesController < ApplicationController
 
     def create
       category = Category.create(category_params)
-      render json: category
+      if category.errors[:title].any?
+        render json: {status: "error", code: 4000, message: category.errors.objects.first.full_message}, status: :unprocessable_entity
+      else
+        render json: category
+      end
     end
 
     def update
       category = Category.find(params[:id])
       category.update(category_params)
-      render json: category
+      if category.errors[:title].any?
+        render json: {status: "error", code: 4000, message: category.errors.objects.first.full_message}, status: :unprocessable_entity
+      else
+        render json: category
+      end
     end
 
     def destroy
