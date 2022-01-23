@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
     def index
-      tasks = Task.all.where("category_id = ?", params[:category_id])
+      tasks = Task.all.where("category_id = ?", params[:category_id]).order("id")
       priorities = Task.priorities
       recurrences = Task.recurrences
       render json: { tasks: tasks, priorities: priorities.keys, recurrences: recurrences.keys }
